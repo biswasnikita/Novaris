@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { config, POLL_INTERVAL_MS } from "./config";
+import { config, LANDING_PAGE_URL, POLL_INTERVAL_MS } from "./config";
 import {
   claimReward,
   fetchEarned,
@@ -85,6 +85,15 @@ export default function App() {
     }
   }
 
+  function handleDisconnect() {
+    setAddress(null);
+    setUserData(null);
+    setEarned(null);
+    setTokenABalance(null);
+    setTokenBBalance(null);
+    setError(null);
+  }
+
   async function withBusy(fn: () => Promise<void>) {
     setError(null);
     setBusy(true);
@@ -101,13 +110,29 @@ export default function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>StakePool</h1>
+        <a href={LANDING_PAGE_URL} className="brand-link">
+          <h1>Lumora</h1>
+        </a>
         {address ? (
-          <span className="wallet-pill">{address.slice(0, 4)}…{address.slice(-4)}</span>
-        ) : (
-          <button onClick={handleConnect} disabled={!freighterAvailable}>
-            {freighterAvailable ? "Connect Freighter" : "Freighter not detected"}
+          <div className="wallet-connected">
+            <span className="wallet-pill">{address.slice(0, 4)}…{address.slice(-4)}</span>
+            <button className="secondary disconnect-btn" onClick={handleDisconnect}>
+              Disconnect
+            </button>
+          </div>
+        ) : freighterAvailable ? (
+          <button className="connect-btn" onClick={handleConnect}>
+            Connect Freighter
           </button>
+        ) : (
+          <a
+            href="https://www.freighter.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="install-link"
+          >
+            Install Freighter
+          </a>
         )}
       </header>
 
