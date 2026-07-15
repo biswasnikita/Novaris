@@ -12,17 +12,21 @@ export const config = {
   tokenAId: requireEnv("VITE_TOKEN_A_ID"),
   tokenBId: requireEnv("VITE_TOKEN_B_ID"),
   stakePoolId: requireEnv("VITE_STAKE_POOL_ID"),
+  /** Horizon endpoint for classic operations (XLM balance + payments). */
+  horizonUrl: import.meta.env.VITE_HORIZON_URL ?? "https://horizon-testnet.stellar.org",
+  /** stellar.expert network segment used to build explorer links. */
+  explorerNetwork: import.meta.env.VITE_EXPLORER_NETWORK ?? "testnet",
 };
+
+/** Builds a stellar.expert explorer URL for a transaction hash. */
+export function explorerTxUrl(hash: string): string {
+  return `https://stellar.expert/explorer/${config.explorerNetwork}/tx/${hash}`;
+}
 
 /** How often (ms) to re-poll `earned` / pool state for the live-ticking display. */
 export const POLL_INTERVAL_MS = 12_000;
 
-/**
- * The marketing/landing page (Lumorahometemplate), linked from the app
- * header. Uses 127.0.0.1 explicitly, not "localhost" -- "localhost" can
- * resolve to the IPv6 loopback first, where an unrelated project's dev
- * server may happen to be listening on the same port instead.
- */
-export const LANDING_PAGE_URL = "http://127.0.0.1:3010";
+/** The marketing/landing page (Lumorahometemplate), proxied at the root of this same domain. */
+export const LANDING_PAGE_URL = "/";
 
 export const SECONDS_PER_YEAR = 365 * 24 * 60 * 60;

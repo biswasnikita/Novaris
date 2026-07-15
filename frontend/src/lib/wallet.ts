@@ -14,10 +14,14 @@ export async function isFreighterAvailable(): Promise<boolean> {
 /** Prompts the user to connect Freighter (if not already) and returns their address. */
 export async function connectWallet(): Promise<string> {
   const { address, error } = await requestAccess();
-  if (error || !address) {
-    throw new Error(error?.message ?? "Failed to connect Freighter wallet");
-  }
-  return address;
+  if (address) return address;
+  // Some Freighter states resolve requestAccess without an address (already
+  // allowed but not returned). Fall back to reading the address directly.
+  const fallback = await getAddress();
+  if (fallback.address) return fallback.address;
+  throw new Error(
+    error?.message ?? fallback.error?.message ?? "Freighter returned no address",
+  );
 }
 
 /** Returns the currently connected address, if the app is already authorized. */

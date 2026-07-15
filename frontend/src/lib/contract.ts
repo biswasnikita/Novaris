@@ -71,6 +71,12 @@ export async function callContractFunction<T>(options: CallContractOptions): Pro
   if (tx.isReadCall) {
     return unwrapIfResult<T>(tx.result);
   }
+  // A write reached signing without a source account. The SDK would otherwise
+  // throw the opaque "constructed using a default account" error here; surface
+  // the actual cause instead: no wallet is connected.
+  if (!options.publicKey) {
+    throw new Error("Connect your Freighter wallet before submitting a transaction.");
+  }
   const sent = await tx.signAndSend();
   return unwrapIfResult<T>(sent.result);
 }
