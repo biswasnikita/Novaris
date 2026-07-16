@@ -10,7 +10,7 @@ export function PoolStats({ poolState }: { poolState: PoolState | null }) {
 
   return (
     <section className="card">
-      <h2>Pool Stats</h2>
+      <h2>Pool Overview</h2>
       {!poolState ? (
         <p className="muted">Loading…</p>
       ) : (

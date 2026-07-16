@@ -1,4 +1,4 @@
-# Lumora — Stellar Wallet & Staking dApp (Frontend)
+# Novaris — Stellar Wallet & Staking dApp (Frontend)
 
 A React + Vite frontend for the Stellar **Testnet** that integrates the
 [Freighter](https://www.freighter.app/) wallet, native XLM payments, and a
@@ -49,7 +49,7 @@ npm run dev            # http://localhost:5173/app/
 2. Fund the account: <https://friendbot.stellar.org/?addr=YOUR_G_ADDRESS>.
 3. Open the app, click **Connect Freighter**, approve.
 4. Confirm your **XLM balance** shows in the header.
-5. In **Send XLM**, enter a recipient `G…` and an amount, click **Send XLM**, approve in Freighter.
+5. In **Transfer XLM**, enter a recipient `G…` and an amount, click **Send XLM**, approve in Freighter.
 6. On success you'll see the **tx hash** and an explorer link; on failure, a typed error message.
 
 ## Project structure
@@ -62,7 +62,7 @@ src/
     contract.ts      generic Soroban contract-call helper
     contracts.ts     typed stake/unstake/claim/read bindings
   components/
-    SendXlmPanel.tsx Send-XLM form + transaction feedback
+    SendXlmPanel.tsx Transfer-XLM form + transaction feedback
     StakePanel.tsx   stake/unstake
     RewardsPanel.tsx claimable rewards
     PoolStats.tsx    pool overview

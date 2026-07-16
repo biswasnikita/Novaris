@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Coins, Menu, X } from "lucide-react"
+import { Orbit, Menu, X } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
 import { motion } from "framer-motion"
@@ -29,8 +29,8 @@ export function Hero() {
         <nav className="relative z-50 px-6 py-6">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 text-white">
-              <Coins className="h-5 w-5 text-amber-500" />
-              <span className="font-medium">Lumora</span>
+              <Orbit className="h-5 w-5 text-cyan-400" />
+              <span className="font-medium tracking-tight">Novaris</span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -71,7 +71,7 @@ export function Hero() {
 
           {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <div className="absolute left-0 right-0 top-full bg-zinc-900/95 backdrop-blur-sm border-t border-zinc-700/30 lg:hidden">
+            <div className="absolute left-0 right-0 top-full bg-slate-900/95 backdrop-blur-sm border-t border-slate-700/30 lg:hidden">
               <div className="flex flex-col px-6 py-6 gap-4">
                 <Link
                   href="#about"
@@ -96,7 +96,7 @@ export function Hero() {
                 </Link>
                 <Link
                   href={DAPP_URL}
-                  className="mt-2 text-white font-medium py-2 border-t border-zinc-700/30"
+                  className="mt-2 text-white font-medium py-2 border-t border-slate-700/30"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Get Started
@@ -109,7 +109,7 @@ export function Hero() {
         {/* Hero Content - Positioned in upper portion */}
         <div className="flex flex-1 flex-col items-center px-6 pt-16 text-center md:pt-24">
           <h1 className="max-w-3xl text-balance text-5xl font-normal tracking-tight text-white md:text-6xl lg:text-7xl">
-            {"Illuminate Your Onchain Yield".split(" ").map((word, i) => (
+            {"Yield You Can Watch Accrue".split(" ").map((word, i) => (
               <motion.span
                 key={i}
                 initial={{ filter: "blur(10px)", opacity: 0 }}
@@ -124,7 +124,7 @@ export function Hero() {
           </h1>
           
           <p className="mt-6 max-w-xl text-balance text-center text-sm leading-relaxed text-white/70 md:text-base">
-            Lumora is a transparent staking protocol on Stellar. Stake once, and watch rewards accrue every second — verifiable onchain, down to the last stroop.
+            Novaris is a fully transparent staking protocol on Stellar. Deposit once, and see your rewards grow every second — every figure provable onchain, down to the last stroop.
           </p>
 
           {/* CTAs - Two buttons side by side */}

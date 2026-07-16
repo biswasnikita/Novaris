@@ -1,21 +1,21 @@
-import { Coins, Github } from "lucide-react";
+import { Orbit, Github } from "lucide-react";
 import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="w-full bg-zinc-900 border-t border-zinc-700/30">
+    <footer className="w-full bg-slate-900 border-t border-slate-700/30">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-8 md:px-12">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <Coins className="h-6 w-6 text-amber-500" />
-          <span className="text-lg font-medium text-white">Lumora</span>
+          <Orbit className="h-6 w-6 text-cyan-400" />
+          <span className="text-lg font-medium text-white tracking-tight">Novaris</span>
         </Link>
 
         {/* Social Links */}
         <div className="flex items-center gap-6">
           <Link
             href="#"
-            className="text-zinc-400 transition-colors hover:text-white"
+            className="text-slate-400 transition-colors hover:text-white"
             aria-label="GitHub"
           >
             <Github className="h-5 w-5" />
@@ -24,7 +24,7 @@ export function Footer() {
             href="https://twitter.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-zinc-400 transition-colors hover:text-white"
+            className="text-slate-400 transition-colors hover:text-white"
             aria-label="X (formerly Twitter)"
           >
             <svg
@@ -42,13 +42,13 @@ export function Footer() {
         <div className="flex items-center gap-6">
           <Link
             href="/privacy"
-            className="text-sm text-zinc-400 transition-colors hover:text-white"
+            className="text-sm text-slate-400 transition-colors hover:text-white"
           >
             Privacy
           </Link>
           <Link
             href="/terms"
-            className="text-sm text-zinc-400 transition-colors hover:text-white"
+            className="text-sm text-slate-400 transition-colors hover:text-white"
           >
             Terms Of Use
           </Link>

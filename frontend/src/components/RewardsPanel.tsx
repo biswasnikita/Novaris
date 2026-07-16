@@ -13,7 +13,7 @@ export function RewardsPanel({ address, earned, tokenBBalance, busy, onClaim }: 
 
   return (
     <section className="card">
-      <h2>Rewards</h2>
+      <h2>Your Rewards</h2>
       {!address ? (
         <p className="muted">Connect your wallet to see your rewards.</p>
       ) : (

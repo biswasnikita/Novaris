@@ -26,7 +26,7 @@ export function explorerTxUrl(hash: string): string {
 /** How often (ms) to re-poll `earned` / pool state for the live-ticking display. */
 export const POLL_INTERVAL_MS = 12_000;
 
-/** The marketing/landing page (Lumorahometemplate), proxied at the root of this same domain. */
+/** The Novaris marketing/landing page, proxied at the root of this same domain. */
 export const LANDING_PAGE_URL = "/";
 
 export const SECONDS_PER_YEAR = 365 * 24 * 60 * 60;

@@ -153,7 +153,8 @@ export default function App() {
     <div className="app">
       <header className="app-header">
         <a href={LANDING_PAGE_URL} className="brand-link">
-          <h1>Lumora</h1>
+          <span className="brand-mark" aria-hidden="true">N</span>
+          <h1>Novaris</h1>
         </a>
         {address ? (
           <div className="wallet-connected">

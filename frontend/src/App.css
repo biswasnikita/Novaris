@@ -1,31 +1,40 @@
 :root {
-  --bg: #f7f7f9;
+  --bg: #f4f7fb;
+  --bg-elevated: #eef2f8;
   --card-bg: #ffffff;
-  --text: #16181d;
-  --muted: #6b7280;
-  --border: #e5e7eb;
-  --accent: #4f46e5;
+  --text: #0c1420;
+  --muted: #5b6b80;
+  --border: #dde5ef;
+  --accent: #0891b2;
+  --accent-strong: #06b6d4;
   --accent-contrast: #ffffff;
+  --brand-from: #06b6d4;
+  --brand-to: #3b82f6;
   --danger-bg: #fee2e2;
   --danger-text: #991b1b;
-  --success-bg: #dcfce7;
-  --success-text: #166534;
+  --success-bg: #d1fae5;
+  --success-text: #065f46;
+  --radius: 14px;
   color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0f1115;
-    --card-bg: #181b21;
-    --text: #e6e8eb;
-    --muted: #9aa1ac;
-    --border: #2a2e37;
-    --accent: #818cf8;
-    --accent-contrast: #10121a;
-    --danger-bg: #3f1d1d;
+    --bg: #070b12;
+    --bg-elevated: #0d131d;
+    --card-bg: #0f1622;
+    --text: #e7edf5;
+    --muted: #8b9bb0;
+    --border: #1e2836;
+    --accent: #22d3ee;
+    --accent-strong: #67e8f9;
+    --accent-contrast: #04141a;
+    --brand-from: #22d3ee;
+    --brand-to: #60a5fa;
+    --danger-bg: #3a1717;
     --danger-text: #fca5a5;
-    --success-bg: #14351f;
-    --success-text: #86efac;
+    --success-bg: #0c3026;
+    --success-text: #6ee7b7;
   }
 }
 
@@ -35,32 +44,55 @@
 
 body {
   margin: 0;
-  background: var(--bg);
+  background:
+    radial-gradient(1100px 520px at 50% -10%, color-mix(in srgb, var(--accent) 12%, transparent), transparent),
+    var(--bg);
   color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 .app {
-  max-width: 960px;
+  max-width: 980px;
   margin: 0 auto;
-  padding: 20px 18px 48px;
+  padding: 22px 18px 56px;
 }
 
 .app-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
 }
 
 .brand-link {
   color: inherit;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--brand-from), var(--brand-to));
+  display: grid;
+  place-items: center;
+  color: #04141a;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--accent) 40%, transparent);
 }
 
 .app-header h1 {
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   margin: 0;
+  letter-spacing: -0.02em;
+  font-weight: 600;
 }
 
 .wallet-connected {
@@ -71,11 +103,11 @@ body {
 
 .wallet-pill {
   font-family: ui-monospace, monospace;
-  background: var(--card-bg);
+  background: var(--bg-elevated);
   border: 1px solid var(--border);
-  padding: 6px 12px;
+  padding: 7px 13px;
   border-radius: 999px;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
 }
 
 .disconnect-btn {
@@ -87,17 +119,17 @@ body {
 
 .connect-btn {
   flex: none;
-  padding: 10px 18px;
+  padding: 10px 20px;
   font-size: 0.9rem;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 .install-link {
   flex: none;
-  background: var(--accent);
-  color: var(--accent-contrast);
-  border-radius: 8px;
-  padding: 10px 18px;
+  background: linear-gradient(135deg, var(--brand-from), var(--brand-to));
+  color: #04141a;
+  border-radius: 10px;
+  padding: 10px 20px;
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
@@ -106,32 +138,44 @@ body {
 .error-banner {
   background: var(--danger-bg);
   color: var(--danger-text);
-  padding: 10px 14px;
-  border-radius: 8px;
-  margin-bottom: 16px;
+  padding: 11px 15px;
+  border-radius: 10px;
+  margin-bottom: 18px;
   font-size: 0.9rem;
   word-break: break-word;
 }
 
 .app-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 18px;
 }
 
 .card {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: var(--radius);
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand-from), var(--brand-to));
+  opacity: 0.7;
 }
 
 .card h2 {
-  margin: 0 0 14px;
-  font-size: 1rem;
+  margin: 0 0 16px;
+  font-size: 0.72rem;
   color: var(--muted);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.12em;
+  font-weight: 600;
 }
 
 .stat-list {
@@ -141,7 +185,7 @@ body {
 .stat-list > div {
   display: flex;
   justify-content: space-between;
-  padding: 6px 0;
+  padding: 8px 0;
   border-bottom: 1px solid var(--border);
 }
 
@@ -174,13 +218,21 @@ body {
 
 input[type="text"] {
   width: 100%;
-  padding: 10px 12px;
-  border-radius: 8px;
+  padding: 11px 13px;
+  border-radius: 10px;
   border: 1px solid var(--border);
-  background: var(--bg);
+  background: var(--bg-elevated);
   color: var(--text);
   font-size: 0.95rem;
+  font-family: inherit;
   margin-bottom: 6px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
 }
 
 .field-error {
@@ -195,19 +247,29 @@ input[type="text"] {
 }
 
 button {
-  background: var(--accent);
-  color: var(--accent-contrast);
+  background: linear-gradient(135deg, var(--brand-from), var(--brand-to));
+  color: #04141a;
   border: none;
-  border-radius: 8px;
-  padding: 10px 16px;
+  border-radius: 10px;
+  padding: 11px 16px;
   font-size: 0.9rem;
   font-weight: 600;
+  font-family: inherit;
   cursor: pointer;
   flex: 1;
+  transition: transform 0.08s ease, opacity 0.15s ease;
+}
+
+button:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px);
 }
 
 button:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
@@ -221,53 +283,58 @@ button.secondary {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px 0 20px;
+  padding: 18px 0 22px;
 }
 
 .earned-value {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--brand-from), var(--brand-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   transition: opacity 0.2s ease;
 }
 
 .earned-label {
   color: var(--muted);
   font-size: 0.8rem;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 /* --- XLM balance in header --- */
 .xlm-balance {
   font-variant-numeric: tabular-nums;
   font-weight: 600;
-  font-size: 0.85rem;
-  background: var(--card-bg);
+  font-size: 0.82rem;
+  background: var(--bg-elevated);
   border: 1px solid var(--border);
-  padding: 6px 12px;
+  padding: 7px 13px;
   border-radius: 999px;
 }
 
-/* --- Send XLM panel --- */
+/* --- Transfer XLM panel --- */
 .field-label {
   display: block;
   color: var(--muted);
-  font-size: 0.78rem;
-  margin: 8px 0 4px;
+  font-size: 0.72rem;
+  margin: 10px 0 4px;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.08em;
 }
 
 .send-btn {
   width: 100%;
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
 /* --- Transaction feedback --- */
 .tx-feedback {
   margin-top: 14px;
   padding: 12px 14px;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 0.85rem;
   display: flex;
   flex-direction: column;
@@ -312,7 +379,7 @@ button.secondary {
 
   .app-header {
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
   }
 
   .wallet-connected {
@@ -325,6 +392,6 @@ button.secondary {
   }
 
   .earned-value {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 }

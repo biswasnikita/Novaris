@@ -1,14 +1,14 @@
 import React from "react"
 import type { Metadata } from 'next'
-import { Host_Grotesk, Geist, Geist_Mono } from 'next/font/google'
+import { Space_Grotesk } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const hostGrotesk = Host_Grotesk({ subsets: ["latin"], variable: "--font-host-grotesk" });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
 
 export const metadata: Metadata = {
-  title: 'Lumora | Illuminate Your Onchain Yield',
-  description: 'Lumora is a transparent staking protocol on Stellar Soroban. Stake once and watch rewards accrue every second, verifiable onchain down to the last stroop.',
+  title: 'Novaris | Yield You Can Watch Accrue',
+  description: 'Novaris is a fully transparent staking protocol on Stellar. Deposit once and see your rewards grow every second — every figure provable onchain, down to the last stroop.',
 }
 
 export default function RootLayout({
@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${hostGrotesk.variable} font-sans antialiased`}>
+      <body className={`${spaceGrotesk.variable} font-sans antialiased`}>
         {children}
         <Analytics />
       </body>

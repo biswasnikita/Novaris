@@ -44,7 +44,7 @@ export function StakePanel({ address, userData, tokenABalance, busy, onStake, on
 
   return (
     <section className="card">
-      <h2>Stake / Unstake</h2>
+      <h2>Manage Stake</h2>
       {!address ? (
         <p className="muted">Connect your wallet to stake.</p>
       ) : (

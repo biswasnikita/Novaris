@@ -39,7 +39,7 @@ export function SendXlmPanel({ address, xlmBalance, onSent }: Props) {
 
   return (
     <section className="card">
-      <h2>Send XLM</h2>
+      <h2>Transfer XLM</h2>
 
       {!address ? (
         <p className="muted">Connect your wallet to send XLM.</p>

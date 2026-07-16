@@ -22,7 +22,7 @@ export function CtaSection() {
       <div className="relative mx-auto max-w-7xl px-6 md:px-12 lg:px-16 py-24 md:py-32 lg:py-40">
         <div className="max-w-2xl">
           <h2 className="text-balance text-4xl font-normal tracking-tight text-white md:text-5xl lg:text-6xl">
-            {"Start Earning, Transparently".split(" ").map((word, i) => (
+            {"Put Your Stake to Work".split(" ").map((word, i) => (
               <motion.span
                 key={i}
                 initial={{ filter: "blur(10px)", opacity: 0 }}
@@ -36,8 +36,8 @@ export function CtaSection() {
             ))}
           </h2>
           <p className="text-balance mt-6 max-w-xl text-base leading-relaxed text-white/80 md:text-lg">
-            Connect your wallet, stake Token A, and watch your rewards accrue
-            in real time — every number verifiable onchain.
+            Connect your wallet, deposit Token A, and see your rewards climb
+            in real time — every figure provable onchain.
           </p>
           <Button
             asChild

@@ -3,7 +3,7 @@
 import React from "react"
 
 import { motion } from "framer-motion";
-import { Brain, Shield, Globe } from "lucide-react";
+import { Zap, ShieldCheck, Network } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -19,45 +19,45 @@ interface FeatureItem {
 const DEFAULT_FEATURES: FeatureItem[] = [
   {
     id: "1",
-    icon: <Brain className="w-5 h-5 text-white" />,
-    title: "O(1) Reward Accounting",
+    icon: <Zap className="w-5 h-5 text-white" />,
+    title: "Constant-Time Accounting",
     description:
-      "No loops over stakers, ever. Every stake, unstake, and claim is a constant-time operation, regardless of how many people are in the pool.",
+      "The contract never loops over stakers. Staking, unstaking, and claiming each run in constant time, no matter how large the pool grows.",
   },
   {
     id: "2",
-    icon: <Shield className="w-5 h-5 text-white" />,
-    title: "Non-Retroactive Rate Changes",
+    icon: <ShieldCheck className="w-5 h-5 text-white" />,
+    title: "Rate Changes Never Look Back",
     description:
-      "Admins can adjust the emission rate going forward, but the accumulator checkpoint guarantees past accrual is never rewritten.",
+      "Operators can tune the emission rate for the future, yet the accumulator checkpoint ensures already-earned rewards can never be rewritten.",
   },
   {
     id: "3",
-    icon: <Globe className="w-5 h-5 text-white" />,
-    title: "Fully Onchain, Fully Auditable",
+    icon: <Network className="w-5 h-5 text-white" />,
+    title: "Entirely Onchain, Entirely Auditable",
     description:
-      "Every number — total staked, reward rate, your accrued balance — lives in contract storage. Read it directly, no API required.",
+      "Every figure — total staked, reward rate, your accrued balance — sits in contract storage. Query it straight from the chain, no API in between.",
   },
   {
     id: "4",
-    icon: <Brain className="w-5 h-5 text-white" />,
-    title: "Fixed-Point Precision",
+    icon: <Zap className="w-5 h-5 text-white" />,
+    title: "High-Precision Math",
     description:
-      "Reward math is scaled internally so small emission rates never round down to zero, even across thousands of stakers.",
+      "Reward calculations are scaled internally so even tiny emission rates never round to zero, across thousands of stakers.",
   },
   {
     id: "5",
-    icon: <Shield className="w-5 h-5 text-white" />,
-    title: "Stake and Unstake Freely",
+    icon: <ShieldCheck className="w-5 h-5 text-white" />,
+    title: "Move In and Out Freely",
     description:
-      "No lock-up periods. Partial or full unstakes are always available, and pending rewards are never lost.",
+      "There are no lock-up windows. Withdraw part or all of your stake anytime, and your pending rewards stay intact.",
   },
   {
     id: "6",
-    icon: <Globe className="w-5 h-5 text-white" />,
-    title: "Live on Stellar Testnet",
+    icon: <Network className="w-5 h-5 text-white" />,
+    title: "Running on Stellar Testnet",
     description:
-      "Not a whitepaper. Lumora is deployed today, with a real contract address you can query right now.",
+      "This isn't a whitepaper. Novaris is deployed right now, with a real contract address you can query today.",
   },
 ];
 
@@ -96,8 +96,8 @@ interface FeaturesSectionProps {
 }
 
 export function FeaturesSection({
-  preHeading = "Protocol Mechanics",
-  headline = "Built for Verifiable Yield",
+  preHeading = "Under the Hood",
+  headline = "Engineered for Provable Yield",
   features = DEFAULT_FEATURES,
   className,
 }: FeaturesSectionProps) {
@@ -105,7 +105,7 @@ export function FeaturesSection({
     <section
       id="features"
       className={cn(
-        "w-full bg-zinc-900 py-24 border-b border-zinc-700/30",
+        "w-full bg-slate-900 py-24 border-b border-slate-700/30",
         className
       )}
     >
@@ -118,9 +118,9 @@ export function FeaturesSection({
           transition={{ duration: 0.6 }}
           className="flex flex-col gap-6 mb-16"
         >
-          <div className="flex items-center gap-3 px-4 py-2 border border-zinc-700 w-fit">
-            <div className="w-2.5 h-2.5 bg-amber-500" />
-            <span className="text-sm font-medium text-zinc-400 tracking-wide">
+          <div className="flex items-center gap-3 px-4 py-2 border border-slate-700 w-fit">
+            <div className="w-2.5 h-2.5 bg-cyan-400" />
+            <span className="text-sm font-medium text-slate-400 tracking-wide">
               {preHeading}
             </span>
           </div>
@@ -156,7 +156,7 @@ export function FeaturesSection({
             >
               {/* Icon */}
               <div className="mb-8">
-                <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-gradient-to-b from-amber-500 to-amber-700 shadow-lg shadow-amber-500/20 transform transition-transform group-hover:scale-110 duration-300">
+                <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-gradient-to-b from-cyan-400 to-cyan-600 shadow-lg shadow-cyan-500/20 transform transition-transform group-hover:scale-110 duration-300">
                   {feature.icon}
                 </div>
               </div>
@@ -166,7 +166,7 @@ export function FeaturesSection({
                 <h4 className="text-white text-xl font-medium tracking-tight font-sans">
                   {feature.title}
                 </h4>
-                <p className="text-balance text-zinc-400 text-base leading-relaxed font-sans">
+                <p className="text-balance text-slate-400 text-base leading-relaxed font-sans">
                   {feature.description}
                 </p>
               </div>
@@ -185,7 +185,7 @@ export function FeaturesSection({
           <Button
             asChild
             size="lg"
-            className="bg-white text-zinc-900 hover:bg-zinc-200 px-8"
+            className="bg-white text-slate-900 hover:bg-slate-200 px-8"
           >
             <Link href={CONTRACT_EXPLORER_URL} target="_blank" rel="noopener noreferrer">
               See All Contract Functions
@@ -195,7 +195,7 @@ export function FeaturesSection({
             asChild
             size="lg"
             variant="outline"
-            className="border-zinc-600 text-white hover:bg-zinc-800 bg-transparent px-8"
+            className="border-slate-600 text-white hover:bg-slate-800 bg-transparent px-8"
           >
             <Link href="#solution">Read the Reward Math</Link>
           </Button>
