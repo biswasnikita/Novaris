@@ -86,7 +86,8 @@ contracts/
 scripts/
   deploy.sh     deploys token A, token B, and stake_pool to testnet and wires them up
   demo.sh       two wallets stake different amounts and rewards visibly split proportionally
-frontend/       React app: stake/unstake panel, live-ticking rewards display, pool stats
+frontend/       React dApp: Freighter wallet integration (@stellar/freighter-api),
+                Connect Wallet flow, stake/unstake panel, live-ticking rewards, pool stats
 ```
 
 ## Running the tests
@@ -127,7 +128,7 @@ proportionally in real time:
 ./scripts/demo.sh
 ```
 
-## Frontend
+## Frontend & Stellar Wallet Integration
 
 ```
 cd frontend
@@ -137,4 +138,62 @@ npm run dev
 
 Requires the [Freighter](https://www.freighter.app/) wallet extension and the
 contract addresses from `scripts/deploy-output.json` (see
-`frontend/.env.example`).
+`frontend/.env.example`). See [`frontend/README.md`](frontend/README.md) for the
+full feature list and manual test walkthrough.
+
+The React dApp integrates the Stellar wallet **`@stellar/freighter-api`**
+(declared in [`frontend/package.json`](frontend/package.json)) for wallet
+permissions, address retrieval, and transaction signing. The complete adapter
+is [`frontend/src/lib/wallet.ts`](frontend/src/lib/wallet.ts) and it is wired
+into the UI in [`frontend/src/App.tsx`](frontend/src/App.tsx). See
+**[`WALLET.md`](WALLET.md)** for a full, indexed walkthrough of the wallet
+integration.
+
+**Wallet permissions + address retrieval** — `requestAccess()` (Freighter v6's
+equivalent of the older `setAllowed` permission grant) prompts the user to
+authorize the app, with `getAddress()` as the fallback / already-authorized path
+([`frontend/src/lib/wallet.ts`](frontend/src/lib/wallet.ts)):
+
+```ts
+import { getAddress, isConnected, requestAccess, signTransaction } from "@stellar/freighter-api";
+
+/** Prompts the user to connect Freighter (if not already) and returns their address. */
+export async function connectWallet(): Promise<string> {
+  const { address, error } = await requestAccess();   // permission + address
+  if (address) return address;
+  const fallback = await getAddress();                // already-authorized path
+  if (fallback.address) return fallback.address;
+  throw new Error(error?.message ?? fallback.error?.message ?? "Freighter returned no address");
+}
+```
+
+**Connect Wallet button** — rendered in the app header, calling `connectWallet()`
+on click, with a connected-state pill + disconnect and an "Install Freighter"
+fallback when the extension is absent ([`frontend/src/App.tsx`](frontend/src/App.tsx)):
+
+```tsx
+{address ? (
+  <span className="wallet-pill">{address.slice(0, 4)}…{address.slice(-4)}</span>
+) : freighterAvailable ? (
+  <button className="connect-btn" onClick={handleConnect}>Connect Freighter</button>
+) : (
+  <a href="https://www.freighter.app/">Install Freighter</a>
+)}
+```
+
+**Transaction signing** — Freighter's `signTransaction` is adapted to the shape
+the Soroban `contract.Client` expects and passed into every contract call, so
+`stake` / `unstake` / `claim_reward` and native XLM payments are signed by the
+user's wallet before submission ([`frontend/src/lib/wallet.ts`](frontend/src/lib/wallet.ts),
+[`frontend/src/lib/contract.ts`](frontend/src/lib/contract.ts)):
+
+```ts
+export const signTransaction: SignTransaction = async (xdr, opts) => {
+  const result = await freighterSignTransaction(xdr, {
+    networkPassphrase: opts?.networkPassphrase,
+    address: opts?.address,
+  });
+  if (result.error) throw new Error(result.error.message);
+  return { signedTxXdr: result.signedTxXdr, signerAddress: result.signerAddress };
+};
+```
